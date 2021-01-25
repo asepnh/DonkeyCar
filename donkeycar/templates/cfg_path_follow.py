@@ -100,7 +100,7 @@ ERASE_PATH_BTN = "triangle"     # joystick button to erase path
 # 
 # Odometry
 HAVE_ODOM = False                   # Do you have an odometer? Uses pigpio 
-MM_PER_TICK = 12.7625               # How much travel with a single tick, in mm
+MM_PER_TICK = 0.24               # How much travel with a single tick, in mm
 ODOM_PIN = 4                        # Which GPIO board mode pin to use as input
 ODOM_DEBUG = False                  # Write out values on vel and distance as it runs
 # 

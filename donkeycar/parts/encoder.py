@@ -65,6 +65,46 @@ class AStarSpeed:
         print('stopping AStarSpeed')
         time.sleep(.5)
 
+class ArduinoEncoder():  # use an Arduino or Teensy to read the encoder, sending a ticks counter via USB serial
+    def __init__(self,mm_per_tick,debug=False):
+
+        import serial
+        ser = serial.Serial('/dev/ttyUSB0', 115200, 8, 'N', 1, timeout=1
+        # initialize the odometer values
+        self.m_per_tick = mm_per_tick / 1000.0
+        self.poll_delay = poll_delay
+        self.meters = 0
+        self.last_time = time.time()
+        self.meters_per_second = 0
+        self.counter = 0
+        self.on = True
+        self.debug = debug
+        self.top_speed = 0
+        self.prev_dist = 0.
+
+    def update(self):
+        # keep looping infinitely until the thread is stopped
+        while(self.on):
+            ticks = ser.readline()
+            if(self.debug):
+                print('seconds:', seconds)
+                print('distance:', distance)
+                print('velocity:', velocity)
+
+                print('distance (m):', round(self.meters, 4))
+                print('velocity (m/s):', self.meters_per_second)
+    def run_threaded(self):
+        delta = self.meters - self.prev_dist
+        self.prev_dist = self.meters
+        return self.meters, self.meters_per_second, delta
+
+    def shutdown(self):
+        # indicate that the thread should be stopped
+        self.on = False
+        print('Stopping Rotary Encoder')
+        print("\tDistance Travelled: {} meters".format(round(self.meters, 4)))
+        print("\tTop Speed: {} meters/second".format(round(self.top_speed, 4)))
+        time.sleep(.5)
 
 class RotaryEncoder():
     def __init__(self, mm_per_tick=0.306096, pin=13, poll_delay=0.0166, debug=False):
