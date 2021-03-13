@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Get driving.";
-    var mkdocs_page_input_path = "guide/get_driving.md";
+    var mkdocs_page_input_path = "guide\\get_driving.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -135,6 +135,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -214,7 +219,6 @@
 <pre><code>cd ~/mycar
 python manage.py drive
 </code></pre>
-
 <p>This script will start the drive loop in your car which includes a part that 
 is a web server for you to control your car. You can now control your car
 from a web browser at the URL: <code>&lt;your car's hostname.local&gt;:8887</code></p>
@@ -247,14 +251,12 @@ races if you have a pilot that will steer but doesn't control throttle. </li>
 <h3 id="setup-bluetooth-and-pair-joystick">Setup Bluetooth and pair joystick</h3>
 <p>Check the <a href="/parts/controllers/#physical-joystick-controller">Controllers</a> section to read about setting up the bluetooth connection.</p>
 <h3 id="start-car">Start car</h3>
-<pre><code class="bash">cd ~/mycar
+<pre><code class="language-bash">cd ~/mycar
 python manage.py drive --js
 </code></pre>
-
 <p>Optionally, if you want joystick use to be sticky and don't want to add the --js each time, modify your <strong>myconfig.py</strong> so that <strong>USE_JOYSTICK_AS_DEFAULT = True</strong></p>
-<pre><code class="bash">nano myconfig.py
+<pre><code class="language-bash">nano myconfig.py
 </code></pre>
-
 <h3 id="joystick-controls">Joystick Controls</h3>
 <ul>
 <li>Left analog stick - Left and right to adjust steering</li>

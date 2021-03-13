@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Virtual Race League.";
-    var mkdocs_page_input_path = "guide/virtual_race_league.md";
+    var mkdocs_page_input_path = "guide\\virtual_race_league.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -121,6 +121,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -201,7 +206,6 @@
 <pre><code>DONKEY_SIM_PATH = &quot;remote&quot;
 SIM_HOST = &quot;trainmydonkey.com&quot;
 </code></pre>
-
 <p>This racing server will not always be running. We will bring it up for testing events and on race day. We are aiming to have it up from 7pm-9pm Pacific every night a week before race day. If not up, ask on Discord and we will try to get things running.</p>
 <blockquote>
 <p>Note: If you trained a donkey model, but wish to run it on a Jetson Nano or some platform where you are having troubles installing all the dependencies, <a href="https://gist.github.com/tawnkramer/a74938653ab70e3fd22af1e4788a5001">here's a single script</a> you can use to run without any donkeycar or gym-donkeycar dependencies. Just pass it the model file name, the host name, and the car name. And it will run as a client to the race sim.</p>
@@ -216,16 +220,14 @@ SIM_HOST = &quot;trainmydonkey.com&quot;
 <p>Then clone the gym-donkeycar python project and install. If you are using a virtual environment, don't forget to activate it first. </p>
 </li>
 </ul>
-<pre><code class="bash">git clone https://github.com/tawnkramer/gym-donkeycar
+<pre><code class="language-bash">git clone https://github.com/tawnkramer/gym-donkeycar
 pip install -e gym-donkeycar
 </code></pre>
-
 <ul>
 <li>get the test client. Download via wget on Mac or Linux like:</li>
 </ul>
 <pre><code>wget https://raw.githubusercontent.com/tawnkramer/sdsandbox/master/src/test_client.py
 </code></pre>
-
 <ul>
 <li>or on Windows open a browser to <a href="https://github.com/tawnkramer/sdsandbox/tree/master/src">https://github.com/tawnkramer/sdsandbox/tree/master/src</a></li>
 <li>
@@ -245,7 +247,6 @@ pip install -e gym-donkeycar
 <p>When it's time to race, change the variable:</p>
 <pre><code>host = &quot;trainmydonkey.com&quot;
 </code></pre>
-
 <p>Be sure to enable controls to start the car on your command. We will likely be old school calling 3, 2, 1, GO! over video chat.</p>
 <h2 id="getting-help">Getting Help</h2>
 <p>There's a lot to learn. And come to <a href="https://discord.gg/JGQUU8w">Discord</a> to get some help. Check out the #virtual-racing-league channel there.</p>

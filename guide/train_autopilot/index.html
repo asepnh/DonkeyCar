@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Train an autopilot.";
-    var mkdocs_page_input_path = "guide/train_autopilot.md";
+    var mkdocs_page_input_path = "guide\\train_autopilot.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -131,6 +131,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -216,20 +221,17 @@ your car with <code>Ctrl-c</code> in the ssh session for your car.</li>
 to a PC computer to train. The Jetson nano is more powerful, but still quite slow to train. If desired, skip this transfer step and train on the Nano.</p>
 <p>In a new terminal session on your host PC use rsync to copy your cars
 folder from the Raspberry Pi.</p>
-<pre><code class="bash">rsync -rv --progress --partial pi@&lt;your_pi_ip_address&gt;:~/mycar/data/  ~/mycar/data/
+<pre><code class="language-bash">rsync -rv --progress --partial pi@&lt;your_pi_ip_address&gt;:~/mycar/data/  ~/mycar/data/
 </code></pre>
-
 <h2 id="train-a-model">Train a model</h2>
 <ul>
 <li>In the same terminal you can now run the training script on the latest tub by passing the path to that tub as an argument. You can optionally pass path masks, such as <code>./data/*</code> or <code>./data/tub_?_17-08-28</code> to gather multiple tubs. For example:</li>
 </ul>
-<pre><code class="bash">python ~/mycar/manage.py train --tub &lt;tub folder names comma separated&gt; --model ./models/mypilot.h5
+<pre><code class="language-bash">python ~/mycar/manage.py train --tub &lt;tub folder names comma separated&gt; --model ./models/mypilot.h5
 </code></pre>
-
 <p>Optionally you can pass no arguments for the tub, and then all tubs will be used in the default data dir.</p>
-<pre><code class="bash">python ~/mycar/manage.py train --model ~/mycar/models/mypilot.h5
+<pre><code class="language-bash">python ~/mycar/manage.py train --model ~/mycar/models/mypilot.h5
 </code></pre>
-
 <ul>
 <li>You can create different model types with the <code>--type</code> argument during training. You may also choose to change the default model type in myconfig.py <code>DEFAULT_MODEL_TYPE</code>. When specifying a new model type, be sure to provide that type when running the model, or using the model in other tools like plotting or profiling. For more information on the different model types, look here for <a href="/parts/keras">Keras Parts</a>.</li>
 </ul>
@@ -242,9 +244,8 @@ folder from the Raspberry Pi.</p>
 <p>Use rsync again to move your trained model pilot back to your car.</p>
 </li>
 </ul>
-<pre><code class="bash">rsync -rv --progress --partial ~/mycar/models/ pi@&lt;your_ip_address&gt;:~/mycar/models/
+<pre><code class="language-bash">rsync -rv --progress --partial ~/mycar/models/ pi@&lt;your_ip_address&gt;:~/mycar/models/
 </code></pre>
-
 <ul>
 <li>
 <p>Ensure to place car on the track so that it is ready to drive.</p>
@@ -253,9 +254,8 @@ folder from the Raspberry Pi.</p>
 <p>Now you can start your car again and pass it your model to drive.</p>
 </li>
 </ul>
-<pre><code class="bash">python manage.py drive --model ~/mycar/models/mypilot.h5
+<pre><code class="language-bash">python manage.py drive --model ~/mycar/models/mypilot.h5
 </code></pre>
-
 <ul>
 <li>The car should start to drive on it's own, congratulations!</li>
 </ul>
@@ -311,9 +311,8 @@ folder from the Raspberry Pi.</p>
 <p>Move trained model back to robot. Now place the robot in the location of the initial state. Start the robot with the given model</p>
 </li>
 </ul>
-<pre><code class="bash">python manage.py drive --model=models/my_beh.h5 --type=behavior
+<pre><code class="language-bash">python manage.py drive --model=models/my_beh.h5 --type=behavior
 </code></pre>
-
 <ul>
 <li>Now press select to switch to desired AI mode. Constant throttle available as well as trained throttle.</li>
 </ul>

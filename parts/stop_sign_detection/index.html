@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Stop Sign Detection";
-    var mkdocs_page_input_path = "parts/stop_sign_detection.md";
+    var mkdocs_page_input_path = "parts\\stop_sign_detection.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -125,6 +125,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -211,14 +216,12 @@ Your browser does not support the video tag.
 STOP_SIGN_MIN_SCORE = 0.2
 STOP_SIGN_SHOW_BOUNDING_BOX = True
 </code></pre>
-
 <h3 id="install-edge-tpu-dependencies">Install Edge TPU dependencies</h3>
 <p>Follow <a href="https://coral.ai/docs/accelerator/get-started">this instruction </a> to install and setup Google Coral on Pi 4</p>
 <p>In addition, install the dependency on your dev pc or pi4 like this</p>
 <pre><code>pip3 install https://dl.google.com/coral/edgetpu_api/edgetpu-2.14.0-py3-none-any.whl
 
 </code></pre>
-
 <h2 id="detecting-other-objects">Detecting other objects</h2>
 <p>Since the pre-trained model are trained on coco, there are 80 objects that the model is able to detect. You can simply change the <code>STOP_SIGN_CLASS_ID</code> in <code>stop_sign_detector.py</code> to try.</p>
 <h2 id="accuracy">Accuracy</h2>

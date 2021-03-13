@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "IMU";
-    var mkdocs_page_input_path = "parts/imu.md";
+    var mkdocs_page_input_path = "parts\\imu.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -123,6 +123,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -206,35 +211,30 @@
 <h3 id="software-setup">Software Setup</h3>
 <p>Install smbus:</p>
 <p>from package:</p>
-<pre><code class="bash"> sudo apt install python3-smbus
+<pre><code class="language-bash"> sudo apt install python3-smbus
 </code></pre>
-
 <p>or from source:</p>
-<pre><code class="bash">sudo apt-get install i2c-tools libi2c-dev python-dev python3-dev
+<pre><code class="language-bash">sudo apt-get install i2c-tools libi2c-dev python-dev python3-dev
 git clone https://github.com/pimoroni/py-smbus.git
 cd py-smbus/library
 python setup.py build
 sudo python setup.py install
 </code></pre>
-
 <p>For MPU6050: </p>
 <p>Install pip lib for <code>mpu6050</code>:</p>
-<pre><code class="bash">pip install mpu6050-raspberrypi
+<pre><code class="language-bash">pip install mpu6050-raspberrypi
 </code></pre>
-
 <p>For MPU9250: </p>
 <p>Install pip lib for <code>mpu9250-jmdev</code>:</p>
-<pre><code class="bash">pip install mpu9250-jmdev
+<pre><code class="language-bash">pip install mpu9250-jmdev
 </code></pre>
-
 <h3 id="configuration">Configuration</h3>
 <p>Enable the following configurations to your <code>myconfig.py</code>:</p>
-<pre><code class="python">#IMU
+<pre><code class="language-python">#IMU
 HAVE_IMU = True
 IMU_SENSOR = 'mpu9250'          # (mpu6050|mpu9250)
 IMU_DLP_CONFIG = 3
 </code></pre>
-
 <p><code>IMU_SENSOR</code> can be either <code>mpu6050</code> or <code>mpu9250</code> based on the sensor you are using.</p>
 <p><code>IMU_DLP_CONFIG</code> allows to change the digital lowpass filter settings for your IMU. Lower frequency settings (see below) can filter high frequency noise at the expense of increased latency in IMU sensor data.
 Valid settings are from 0 to 6:</p>

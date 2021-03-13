@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "A Guide to using TensorRT on the Nvidia Jetson Nano";
-    var mkdocs_page_input_path = "guide/robot_sbc/tensorrt_jetson_nano.md";
+    var mkdocs_page_input_path = "guide\\robot_sbc\\tensorrt_jetson_nano.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -111,6 +111,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../../supported_cars/">Supported Cars</a>
                     </li>
@@ -186,51 +191,45 @@
 <ul>
 <li>Setup some environment variables so <code>nvcc</code> is on <code>$PATH</code>. Add the following lines to your <code>~/.bashrc</code> file.</li>
 </ul>
-<pre><code class="bash"># Add this to your .bashrc file
+<pre><code class="language-bash"># Add this to your .bashrc file
 export CUDA_HOME=/usr/local/cuda
 # Adds the CUDA compiler to the PATH
 export PATH=$CUDA_HOME/bin:$PATH
 # Adds the libraries
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 </code></pre>
-
 <ul>
 <li>Test the changes to your <code>.bashrc</code>.</li>
 </ul>
-<pre><code class="bash">source ~/.bashrc
+<pre><code class="language-bash">source ~/.bashrc
 nvcc --version
 </code></pre>
-
 <p>You should see something like:</p>
-<pre><code class="text">nvcc: NVIDIA (R) Cuda compiler driver
+<pre><code class="language-text">nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2018 NVIDIA Corporation
 Built on ...
 Cuda compilation tools, release 10.0, Vxxxxx
 </code></pre>
-
 <ul>
 <li>Switch to your <code>virtualenv</code> and install PyCUDA.</li>
 </ul>
-<pre><code class="bash"># This takes a a while.`
+<pre><code class="language-bash"># This takes a a while.`
 pip install pycuda
 </code></pre>
-
 <ul>
 <li>After this you will also need to setup <code>PYTHONPATH</code> such that your <code>dist-packages</code> are included as part of your <code>virtualenv</code>. Add this to your <code>.bashrc</code>. This needs to be done because the python bindings to <code>tensorrt</code> are available in <code>dist-packages</code> and this folder is usually not visible to your virtualenv. To make them visible we add it to <code>PYTHONPATH</code>.</li>
 </ul>
-<pre><code class="bash">export PYTHONPATH=/usr/lib/python3.6/dist-packages:$PYTHONPATH
+<pre><code class="language-bash">export PYTHONPATH=/usr/lib/python3.6/dist-packages:$PYTHONPATH
 </code></pre>
-
 <ul>
 <li>Test this change by switching to your <code>virtualenv</code> and importing <code>tensorrt</code>.</li>
 </ul>
-<pre><code class="python">&gt; import tensorrt as trt
+<pre><code class="language-python">&gt; import tensorrt as trt
 &gt; # This import should succeed
 </code></pre>
-
 <h2 id="step-3-train-freeze-and-export-your-model-to-tensorrt-format-uff">Step 3: Train, Freeze and Export your model to TensorRT format (<code>uff</code>)</h2>
 <p>After you train the <code>linear</code> model you end up with a file with a <code>.h5</code> extension.</p>
-<pre><code class="bash"># You end up with a Linear.h5 in the models folder
+<pre><code class="language-bash"># You end up with a Linear.h5 in the models folder
 python manage.py train --model=./models/Linear.h5 --tub=./data/tub_1_19-06-29,...
 
 # (optional) copy './models/Linear.h5' from your desktop computer to your Jetson Nano in your working dir (~mycar/models/)
@@ -243,19 +242,17 @@ python ~/projects/donkeycar/scripts/freeze_model.py --model=~/mycar/models/Linea
 cd /usr/lib/python3.6/dist-packages/uff/bin/
 python convert_to_uff.py ~/mycar/models/Linear.pb
 </code></pre>
-
 <p>Now copy the converted <code>uff</code> model and the <code>metadata</code> to your Jetson Nano.</p>
 <h2 id="step-4">Step 4</h2>
 <ul>
 <li>In <code>myconfig.py</code> pick the model type as <code>tensorrt_linear</code>.</li>
 </ul>
-<pre><code class="python">DEFAULT_MODEL_TYPE = `tensorrt_linear`
+<pre><code class="language-python">DEFAULT_MODEL_TYPE = `tensorrt_linear`
 </code></pre>
-
 <ul>
 <li>Finally you can do</li>
 </ul>
-<pre><code class="bash"># After you scp your `uff` model to the Nano
+<pre><code class="language-bash"># After you scp your `uff` model to the Nano
 python manage.py drive --model=./models/Linear.uff
 </code></pre>
               

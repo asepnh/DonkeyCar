@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Stores";
-    var mkdocs_page_input_path = "parts/stores.md";
+    var mkdocs_page_input_path = "parts\\stores.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -119,6 +119,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -198,12 +203,11 @@ on the first loop.</li>
 </ul>
 </blockquote>
 <p>Example creation</p>
-<pre><code class="python">import donkey as dk
+<pre><code class="language-python">import donkey as dk
 
 T = dk.parts.Tub(path, inputs, types)
 
 </code></pre>
-
 <h3 id="accepted-types">Accepted Types</h3>
 <ul>
 <li><code>float</code> - saved as record</li>

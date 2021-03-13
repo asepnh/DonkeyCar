@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Setup mac";
-    var mkdocs_page_input_path = "guide/host_pc/setup_mac.md";
+    var mkdocs_page_input_path = "guide\\host_pc\\setup_mac.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -111,6 +111,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../../supported_cars/">Supported Cars</a>
                     </li>
@@ -190,33 +195,30 @@
 <p>Change to a dir you would like to use as the head of your projects.</p>
 </li>
 </ul>
-<pre><code class="bash">mkdir projects
+<pre><code class="language-bash">mkdir projects
 cd projects
 </code></pre>
-
 <ul>
 <li>Get the latest donkeycar from Github.</li>
 </ul>
-<pre><code class="bash">git clone https://github.com/autorope/donkeycar
+<pre><code class="language-bash">git clone https://github.com/autorope/donkeycar
 cd donkeycar
 git checkout master
 </code></pre>
-
 <ul>
 <li>If this is not your first install, update Conda and remove old donkey</li>
 </ul>
-<pre><code class="bash">conda update -n base -c defaults conda
+<pre><code class="language-bash">conda update -n base -c defaults conda
 conda env remove -n donkey
 </code></pre>
-
 <ul>
 <li>Create the Python anaconda environment</li>
 </ul>
-<pre><code class="bash">conda env create -f install/envs/mac.yml
+<pre><code class="language-bash">conda env create -f install/envs/mac.yml
 conda activate donkey
 pip install -e .[pc]
 </code></pre>
-
+<p>Note: if you are using ZSH (you'll know if you are), you won't be able to run <code>pip install -e .[pc]</code>. You'll need to escape the brackets and run <code>pip install -e .\[pc\]</code>.</p>
 <ul>
 <li>Tensorflow GPU</li>
 </ul>
@@ -224,9 +226,8 @@ pip install -e .[pc]
 <ul>
 <li>Create your local working dir:</li>
 </ul>
-<pre><code class="bash">donkey createcar --path ~/mycar
+<pre><code class="language-bash">donkey createcar --path ~/mycar
 </code></pre>
-
 <blockquote>
 <p>Note: After closing the Terminal, when you open it again, you will need to 
 type <code>conda activate donkey</code> to re-enable the mappings to donkey specific 

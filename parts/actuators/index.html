@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Actuators";
-    var mkdocs_page_input_path = "parts/actuators.md";
+    var mkdocs_page_input_path = "parts\\actuators.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -121,6 +121,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -211,7 +216,7 @@ In large RC cars the servo can drag up to 2 amps, which lead to a destruction of
 <p>Note that the calibration procedure/values are slightly different for the Arduino (than PCA9685).
 Note that 90 is the usual midpoint (i.e. 1.5 ms pulse width at 50 Hz), so it is recommended to start
  with 90 and adjust +/- 5 until you figure the desired range for steering / throttle.</p>
-<pre><code class="bash">(env1) jithu@jithu-lp:~/master/pred_mt/lp/001/donkey$ donkey calibrate --arduino --channel 6
+<pre><code class="language-bash">(env1) jithu@jithu-lp:~/master/pred_mt/lp/001/donkey$ donkey calibrate --arduino --channel 6
 using donkey v2.6.0t ...
 
 pymata_aio Version 2.33 Copyright (c) 2015-2018 Alan Yorinks All rights reserved.
@@ -228,12 +233,11 @@ Enter a PWM setting to test(0-180)90
 Enter a PWM setting to test(0-180)85
 ...
 </code></pre>
-
 <p>Note the <strong>--arduino</strong> switch passed to the calibrate command. Further note that the arduino pin being
  calibrated is passed via the <strong>--channel</strong> parameter.</p>
 <h3 id="using-the-arduino-actuator-part">Using the arduino actuator part</h3>
 <p>The following snippet illustrates how to exercise the Arduino actuator in the drive() loop:</p>
-<pre><code class="python">    #Drive train setup
+<pre><code class="language-python">    #Drive train setup
     arduino_controller = ArduinoFirmata(
                                     servo_pin=cfg.STEERING_ARDUINO_PIN,
                                     esc_pin=cfg.THROTTLE_ARDUINO_PIN)
@@ -250,7 +254,6 @@ Enter a PWM setting to test(0-180)85
     V.add(steering, inputs=['user/angle'])
     V.add(throttle, inputs=['user/throttle'])
 </code></pre>
-
 <p>Refer to templates/arduino_drive.py for more details.</p>
               
             </div>

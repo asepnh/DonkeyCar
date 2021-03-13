@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Create Donkeycar App.";
-    var mkdocs_page_input_path = "guide/create_application.md";
+    var mkdocs_page_input_path = "guide\\create_application.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -137,6 +137,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -208,44 +213,37 @@
 <p>If you are not already, please <a href="/guide/robot_sbc/setup_raspberry_pi/#step-5-connecting-to-the-pi">ssh into your vehicle</a>.</p>
 <h2 id="create-donkeycar-from-template">Create Donkeycar from Template</h2>
 <p>Create a set of files to control your Donkey with this command:</p>
-<pre><code class="bash">donkey createcar --path ~/mycar
+<pre><code class="language-bash">donkey createcar --path ~/mycar
 </code></pre>
-
 <p>See also more information on <a href="/utility/donkey/#create-car">createcar.</a></p>
 <h2 id="configure-options">Configure Options</h2>
 <p>Look at <strong>myconfig.py</strong> in your newly created directory, ~/mycar</p>
-<pre><code class="bash">cd ~/mycar
+<pre><code class="language-bash">cd ~/mycar
 nano myconfig.py
 </code></pre>
-
 <p>Each line has a comment mark. The commented text shows the default value. When you want to make an edit to over-write the default, uncomment the line by removing the # and any spaces before the first character of the option.</p>
 <p>example:</p>
-<pre><code class="python"># STEERING_LEFT_PWM = 460
+<pre><code class="language-python"># STEERING_LEFT_PWM = 460
 </code></pre>
-
 <p>becomes:</p>
-<pre><code class="python">STEERING_LEFT_PWM = 500
+<pre><code class="language-python">STEERING_LEFT_PWM = 500
 </code></pre>
-
 <p>when edited. You will adjust these later in the <a href="/guide/calibrate/">calibrate</a> section.</p>
 <h3 id="configure-i2c-pca9685">Configure I2C PCA9685</h3>
 <p>If you are using a PCA9685 card, make sure you can see it on I2C.</p>
 <p><strong>Jetson Nano</strong>:</p>
-<pre><code class="bash">sudo usermod -aG i2c $USER
+<pre><code class="language-bash">sudo usermod -aG i2c $USER
 sudo reboot
 </code></pre>
-
 <p>After a reboot, then try:</p>
-<pre><code class="bash">sudo i2cdetect -r -y 1
+<pre><code class="language-bash">sudo i2cdetect -r -y 1
 </code></pre>
-
 <p><strong>Raspberry Pi</strong>:</p>
-<pre><code class="bash">sudo apt-get install -y i2c-tools
+<pre><code class="language-bash">sudo apt-get install -y i2c-tools
 sudo i2cdetect -y 1
 </code></pre>
-
 <p>This should show you a grid of addresses like:</p>
-<pre><code class="text">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+<pre><code class="language-text">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -255,7 +253,6 @@ sudo i2cdetect -y 1
 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 70: 70 -- -- -- -- -- -- --
 </code></pre>
-
 <p>In this case, the 40 shows up as the address of our PCA9685 board. If this does not show up, then check your wiring to the board. On a pi, ensure I2C is enabled in menu of <code>sudo raspi-config</code> (notice, it suggest reboot).</p>
 <p>If you have assigned a non-standard address to your board, then adjust the address in the <code>myconfig.py</code> under variable <code>PCA9685_I2C_ADDR</code>. If your board is on another bus, then you can specify that with the <code>PCA9685_I2C_BUSNUM</code>.</p>
 <p><strong>Jetson Nano</strong>: set <code>PCA9685_I2C_BUSNUM = 1</code> in your <strong>myconfig.py</strong> . For the pi, this will be auto detected by the Adafruit library. But not on the Jetson Nano.</p>
@@ -263,7 +260,7 @@ sudo i2cdetect -y 1
 <p>Set <code>HAVE_SOMBRERO = True</code> in your <strong>myconfig.py</strong> if you have a sombrero board.</p>
 <h2 id="robo-hat-mm1-setup">Robo HAT MM1 Setup</h2>
 <p>Set <code>HAVE_ROBOHAT = True</code> in your <strong>myconfig.py</strong> if you have a Robo HAT MM1 board. Also set the following variables according to your setup.  Most people will be using the below values, however, if you are using a Jetson Nano, please set <code>MM1_SERIAL_PORT = '/dev/ttyTHS1'</code></p>
-<pre><code class="python3">#ROBOHAT MM1
+<pre><code class="language-python3">#ROBOHAT MM1
 HAVE_ROBOHAT = False            # set to true when using the Robo HAT MM1 from Robotics Masters.  This will change to RC Control.
 MM1_STEERING_MID = 1500         # Adjust this value if your car cannot run in a straight line
 MM1_MAX_FORWARD = 2000          # Max throttle to go fowrward. The bigger the faster
@@ -284,7 +281,6 @@ CONTROLLER_TYPE='MM1'
 # adjust drive train for web interface
 DRIVE_TRAIN_TYPE = 'MM1'
 </code></pre>
-
 <p>The Robo HAT MM1 uses a RC Controller and CircuitPython script to drive the car during training. You must put the CircuitPython script onto the Robo HAT MM1 with your computer before you can continue.</p>
 <ol>
 <li>Download the CircuitPython Donkey Car Driver for Robo HAT MM1 to your computer from <a href="https://github.com/autorope/donkeycar/blob/dev/donkeycar/contrib/robohat/code.py">here</a></li>
@@ -323,11 +319,10 @@ Set <code>IMAGE_W = 224</code> and also <code>IMAGE_H = 224</code>.</p>
 <p>If you are having troubles with your camera, check out our <a href="https://donkey.discourse.group/t/faq-troubleshooting/33">Discourse FAQ for hardware troubleshooting</a>. Check this forum for more help.</p>
 <h2 id="keeping-things-up-to-date">Keeping Things Up To Date</h2>
 <p>Make all config changes to <strong>myconfig.py</strong> and they will be preserved through an update. If you are a long time user, you might be used to editing config.py. You should switch to editing myconfig.py instead. Later on, when changes occur that you would like to get, you can pull latest code, then issue a:</p>
-<pre><code class="bash">cd projects/donkeycar
+<pre><code class="language-bash">cd projects/donkeycar
 git pull
 donkey createcar --path ~/mycar --overwrite
 </code></pre>
-
 <p>Your ~/mycar/manage.py, ~/mycar/config.py and other files will change with this operation, but <strong>myconfig.py</strong> will not be touched. Your <strong>data</strong> and <strong>models</strong> dirs will not be touched.</p>
 <blockquote>
 <p>Note: If you are updating from Donkey&lt;3.0 to 3.0+ it is very likely you will need to start over with a new virtual environment. We've had a few users hit this snag.</p>

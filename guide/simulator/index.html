@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Donkey Simulator.";
-    var mkdocs_page_input_path = "guide/simulator.md";
+    var mkdocs_page_input_path = "guide\\simulator.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -161,6 +161,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -247,28 +252,25 @@ https://youtu.be/wqQMmHVT8qw</p>
 <li>Complete all the steps to <a href="../install_software/#step-1-install-software-on-host-pc">install Donkey on your host pc</a>.</li>
 <li>Setup DonkeyGym:</li>
 </ul>
-<pre><code class="bash">cd ~/projects
+<pre><code class="language-bash">cd ~/projects
 git clone https://github.com/tawnkramer/gym-donkeycar
 cd gym-donkeycar
 conda activate donkey
 pip install -e .[gym-donkeycar]
 </code></pre>
-
 <ul>
 <li>You may use an existing ~/mycar donkey application, or begin a new one. Here we will start fresh: </li>
 </ul>
-<pre><code class="bash">donkey createcar --path ~/mysim
+<pre><code class="language-bash">donkey createcar --path ~/mysim
 cd ~/mysim
 </code></pre>
-
 <ul>
 <li>Edit your myconfig.py to enable donkey gym simulator wrapper, replace <code>&lt;user-name&gt;</code> and the other parts of the path:</li>
 </ul>
-<pre><code class="bash">DONKEY_GYM = True
+<pre><code class="language-bash">DONKEY_GYM = True
 DONKEY_SIM_PATH = &quot;/home/&lt;user-name&gt;/projects/DonkeySimLinux/donkey_sim.x86_64&quot;
 DONKEY_GYM_ENV_NAME = &quot;donkey-generated-track-v0&quot;
 </code></pre>
-
 <blockquote>
 <p>Note: your path to the executable will vary depending on platform and user.
  Windows: DonkeySimWin/donkey_sim.exe
@@ -277,27 +279,23 @@ DONKEY_GYM_ENV_NAME = &quot;donkey-generated-track-v0&quot;
 </blockquote>
 <h2 id="drive">Drive</h2>
 <p>You may use all the normal commands to manage.py at this point. Such as:</p>
-<pre><code class="bash">python manage.py drive
+<pre><code class="language-bash">python manage.py drive
 </code></pre>
-
 <p>This should start the simulator and connect to it automatically. By default you will have a web interface to control the donkey. Navigate to <a href="http://localhost:8887/drive">http://localhost:8887/drive</a> to see control page.</p>
 <p>On Ubuntu Linux only, you may plug in your joystick of choice.
 If it mounts as <code>/dev/input/js0</code> then there's a good chance it will work.
 Modify myconfig.py to indicate your joystick model and use the <code>--js</code> arg to run.</p>
-<pre><code class="bash">python manage.py drive --js
+<pre><code class="language-bash">python manage.py drive --js
 </code></pre>
-
 <p>As you drive, this will create a tub of records in your data dir as usual.</p>
 <h2 id="train">Train</h2>
 <p>You will not need to rsync your data, as it was recorded and resides locally. You can train as usual:</p>
-<pre><code class="bash">python manage.py train --model models/mypilot.h5
+<pre><code class="language-bash">python manage.py train --model models/mypilot.h5
 </code></pre>
-
 <h2 id="test">Test</h2>
 <p>You can use the model as usual:</p>
-<pre><code class="bash">python manage.py drive --model models/mypilot.h5
+<pre><code class="language-bash">python manage.py drive --model models/mypilot.h5
 </code></pre>
-
 <p>Then navigate to web control page. Set <code>Mode and Pilot</code> to <code>Local Pilot(d)</code>. The car should start driving.</p>
 <h2 id="sample-driving-data">Sample Driving Data</h2>
 <p>Here's some sample driving data to get you started. <a href="https://drive.google.com/open?id=1A5sTSddFsf494UDtnvYQBaEPYX87_LMp">Download this</a> and unpack it into your data dir. This should train to a slow but stable driver.</p>
@@ -309,11 +307,10 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <p>Client=&gt;Sim. Ask for the version of the protocol. Will help know when changes are made to these messages.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;get_protocol_version&quot; 
     }
 </code></pre>
-
 <hr />
 <h3 id="protocol-version">Protocol Version</h3>
 <p>Sim=&gt;Client. Reply for the version of the protocol. Currently at version 2.</p>
@@ -322,32 +319,29 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>version</em> : string integer</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;protocol_version&quot;,
     &quot;version&quot; : &quot;2&quot;,
     }
 </code></pre>
-
 <hr />
 <h3 id="scene-selection-ready">Scene Selection Ready</h3>
 <p>Sim=&gt;Client. When the Menu scene is finished loading this will be sent. After this point, the sim can honor the Scene Loading message.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;scene_selection_ready&quot; 
     }
 </code></pre>
-
 <hr />
 <h3 id="get-scene-names">Get Scene Names</h3>
 <p>Client=&gt;Sim. Ask names of the scene you can load.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;get_scene_names&quot; 
     }
 </code></pre>
-
 <hr />
 <h3 id="scene-names">Scene Names</h3>
 <p>Sim=&gt;Client. Sim will reply with list of scene names.</p>
@@ -356,42 +350,38 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>scene_names</em> : array of scene names</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;scene_names&quot; 
     &quot;scene_names&quot; : [ &quot;generated_road&quot;, &quot;warehouse&quot;, &quot;sparkfun_avc&quot;. &quot;generated_track&quot; ]
     }
 </code></pre>
-
 <hr />
 <h3 id="load-scene">Load Scene</h3>
 <p>Client=&gt;Sim. Asks the sim to load one of 4 scenes from the Menu screen.</p>
 <p>Fields: </p>
 <p><em>scene_name</em> : <strong>generated_road | warehouse | sparkfun_avc | generated_track</strong> ( or whatever list the sim returns from get_scene_names)</p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
         &quot;msg_type&quot; : &quot;load_scene&quot;,
         &quot;scene_name&quot; : &quot;generated_track&quot;
     }
 </code></pre>
-
 <hr />
 <h3 id="scene-loaded">Scene Loaded</h3>
 <p>Sim=&gt;Client. Once scene is loaded, in reply, you will get a:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
         &quot;msg_type&quot; : &quot;scene_loaded&quot;
     }
 </code></pre>
-
 <hr />
 <h3 id="car-loaded">Car Loaded</h3>
 <p>Sim=&gt;Client. Once the sim finishes loading your car, it sends this message. The car is loaded for you automatically once the scene is loaded with an active client. Or a client make a connection.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;car_loaded&quot; 
     }
 </code></pre>
-
 <hr />
 <h3 id="car-config">Car Config</h3>
 <p>Client=&gt;Sim. Once loaded, you may configure your car visual details</p>
@@ -405,7 +395,7 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>font_size</em> :  string value of integer between 10-100 to set size of car name text</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
         &quot;msg_type&quot; : &quot;car_config&quot;,
         &quot;body_style&quot; : &quot;car01&quot;,
         &quot;body_r&quot; : &quot;128&quot;,
@@ -415,7 +405,6 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
         &quot;font_size&quot; : &quot;100&quot;
     }
 </code></pre>
-
 <hr />
 <h3 id="camera-config">Camera Config</h3>
 <p>Client=&gt;Sim. Once the scene is loaded, you may configure your car camera sensor details</p>
@@ -434,7 +423,7 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>rot_x</em> : string value of float. Degrees. Rotates camera around X axis.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;cam_config&quot;,
     &quot;fov&quot; : &quot;150&quot;, 
     &quot;fish_eye_x&quot; : &quot;1.0&quot;,
@@ -449,7 +438,6 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
     &quot;rot_x&quot; : &quot;90.0&quot;
     }
 </code></pre>
-
 <hr />
 <h3 id="control-car">Control Car</h3>
 <p>Client=&gt;Sim. Control throttle and steering.</p>
@@ -460,14 +448,13 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>brake</em> :  string value of float between 0 to 1.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;control&quot;,
     &quot;steering&quot; : &quot;0.0&quot;,
     &quot;throttle&quot; : &quot;0.3&quot;,
     &quot;brake&quot; : &quot;0.0&quot;
     }
 </code></pre>
-
 <hr />
 <h3 id="telemetry">Telemetry</h3>
 <p>Sim=&gt;Client. The sim sends this message containing camera image and details about vehicle state. These come at a regular rate set in the sim. Usually about 20 HZ.</p>
@@ -484,7 +471,7 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
 <li><em>cte</em> :  Cross track error. The distance from the car to the path in the center of the right most lane.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;telemetry&quot;, 
     &quot;steering_angle&quot; : &quot;0.0&quot;, 
     &quot;throttle&quot; : &quot;0.0&quot;, 
@@ -497,32 +484,29 @@ Modify myconfig.py to indicate your joystick model and use the <code>--js</code>
     &quot;cte&quot; : &quot;0.5&quot;, 
     }
 </code></pre>
-
 <hr />
 <h3 id="reset-car">Reset Car</h3>
 <p>Client=&gt;Sim. Return the car to the start point.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;reset_car&quot; 
     }
 </code></pre>
-
 <hr />
 <h3 id="exit-scene">Exit Scene</h3>
 <p>Client=&gt;Sim. Leave the scene and return to the main menu screen.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;exit_scene&quot; 
     }
 </code></pre>
-
 <h3 id="quit-app">Quit App</h3>
 <p>Client=&gt;Sim. Close the sim executable.</p>
 <p>Fields: <em>None</em></p>
 <p>Example:</p>
-<pre><code class="bash">    {
+<pre><code class="language-bash">    {
     &quot;msg_type&quot; : &quot;quit_app&quot; 
     }
 </code></pre>

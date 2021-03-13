@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Calibrate steering and throttle.";
-    var mkdocs_page_input_path = "guide/calibrate.md";
+    var mkdocs_page_input_path = "guide\\calibrate.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -125,6 +125,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -201,9 +206,8 @@
 <p>All of the car's settings are in the <code>config.py</code> and <code>myconfig.py</code> scripts generated when
 you ran the <code>donkey createcar --path ~/mycar</code> command. You can edit
 this file on your car by running:</p>
-<pre><code class="bash">nano ~/mycar/myconfig.py
+<pre><code class="language-bash">nano ~/mycar/myconfig.py
 </code></pre>
-
 <h2 id="steering-calibration">Steering Calibration</h2>
 <blockquote>
 <p>Make sure your car is off the ground to prevent a runaway situation.</p>

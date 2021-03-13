@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Voice Control";
-    var mkdocs_page_input_path = "parts/voice_control.md";
+    var mkdocs_page_input_path = "parts\\voice_control.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -139,6 +139,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../supported_cars/">Supported Cars</a>
                     </li>
@@ -237,17 +242,15 @@ with proper configuration, poll our server for any new command from Alexa.</p>
 <h2 id="installation">Installation</h2>
 <p>To install this part, add the following lines to <code>manage.py</code>, right after the
 <code>controller</code> setup. In manage.py:</p>
-<pre><code class="python">
+<pre><code class="language-python">
 if cfg.USE_ALEXA_CONTROL:
   from donkeycar.parts.voice_control.alexa import AlexaController
   V.add(AlexaController(ctr, cfg), threaded=True)
 </code></pre>
-
 <p>In myconfig.py, add the following parameters:</p>
-<pre><code class="python">USE_ALEXA_CONTROL = True
+<pre><code class="language-python">USE_ALEXA_CONTROL = True
 ALEXA_DEVICE_CODE = &quot;123456&quot;
 </code></pre>
-
 <h2 id="commands">Commands</h2>
 <h3 id="autopilot">Autopilot</h3>
 <p><code>Phrases: autopilot, start autopilot</code></p>

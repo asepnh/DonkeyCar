@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../../img/favicon.ico">
-  <title>Setup windows - Donkey Car</title>
+  <title>Windows - Donkey Car</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../../css/theme.css" />
@@ -19,8 +19,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Setup windows";
-    var mkdocs_page_input_path = "guide/host_pc/setup_windows.md";
+    var mkdocs_page_name = "Windows";
+    var mkdocs_page_input_path = "guide\\host_pc\\setup_windows.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -111,6 +111,11 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../../utility/donkey/">donkey</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../dev_guide/model/">Create your own model</a>
+                    </li>
+                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../../supported_cars/">Supported Cars</a>
                     </li>
@@ -160,7 +165,7 @@
     
       
     
-    <li>Setup windows</li>
+    <li>Windows</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/autorope/donkeycar/edit/master/docs/guide/host_pc/setup_windows.md"
@@ -174,7 +179,15 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="install-donkeycar-on-windows">Install Donkeycar on Windows</h2>
+                <h1 id="windows">Windows</h1>
+<p>Windows provides a few different methods for setting up and installing Donkey Car.  </p>
+<ol>
+<li>Miniconda</li>
+<li>Native</li>
+<li>Windows Subsystem for Linux (WSL) - Experimental</li>
+</ol>
+<p>If you are unfamiliar or concerned about the way that you install Donkey Car, please use option 1 above.</p>
+<h2 id="install-donkeycar-on-windows-miniconda">Install Donkeycar on Windows (miniconda)</h2>
 <p><img alt="donkey" src="/assets/logos/windows_logo.png" /></p>
 <ul>
 <li>
@@ -190,46 +203,48 @@
 <p>Change to a dir you would like to use as the head of your projects.</p>
 </li>
 </ul>
-<pre><code class="bash">mkdir projects
+<pre><code class="language-bash">mkdir projects
 cd projects
 </code></pre>
-
 <ul>
 <li>Get the latest donkey from Github.</li>
 </ul>
-<pre><code class="bash">git clone https://github.com/autorope/donkeycar
+<pre><code class="language-bash">git clone https://github.com/autorope/donkeycar
 cd donkeycar
 git checkout master
 </code></pre>
-
 <ul>
 <li>If this is not your first install, update Conda and remove old donkey</li>
 </ul>
-<pre><code class="bash">conda update -n base -c defaults conda
+<pre><code class="language-bash">conda update -n base -c defaults conda
 conda env remove -n donkey
 </code></pre>
-
 <ul>
 <li>Create the Python anaconda environment</li>
 </ul>
-<pre><code class="bash">conda env create -f install\envs\windows.yml
+<pre><code class="language-bash">conda env create -f install\envs\pc.yml
 conda activate donkey
 pip install -e .[pc]
 </code></pre>
-
+<p>Note: if you are using ZSH (you'll know if you are), you won't be able to run <code>pip install -e .[pc]</code>. You'll need to escape the brackets and run <code>pip install -e .\[pc\]</code>.</p>
 <ul>
 <li>Optionally Install Tensorflow GPU - only for NVidia Graphics cards</li>
 </ul>
 <p>If you have an NVidia card, you should update to the lastest drivers and <a href="https://www.tensorflow.org/install/gpu#windows_setup">install Cuda SDK</a>. </p>
-<pre><code class="bash">conda install tensorflow-gpu==1.13.1
+<pre><code class="language-bash">conda install tensorflow-gpu==2.2.0
 </code></pre>
-
+<ul>
+<li>Optionally configure PyTorch to use GPU - only for NVidia Graphics cards</li>
+</ul>
+<p>If you have an NVidia card, you should update to the lastest drivers and <a href="https://www.tensorflow.org/install/gpu#windows_setup">install Cuda SDK</a>. </p>
+<pre><code class="language-bash">conda install cudatoolkit=&lt;CUDA Version&gt; -c pytorch
+</code></pre>
+<p>You should replace <code>&lt;CUDA Version&gt;</code> with your CUDA version. Any version above 10.0 should work. You can find out your CUDA version by running <code>nvcc --version</code> or <code>nvidia-smi</code>.</p>
 <ul>
 <li>Create your local working dir:</li>
 </ul>
-<pre><code class="bash">donkey createcar --path ~/mycar
+<pre><code class="language-bash">donkey createcar --path ~/mycar
 </code></pre>
-
 <blockquote>
 <p>Note: After closing the Anaconda Prompt, when you open it again, you will need to 
 type <code>conda activate donkey</code> to re-enable the mappings to donkey specific 
@@ -237,6 +252,120 @@ Python libraries</p>
 </blockquote>
 <hr />
 <h3 id="next-lets-install-software-on-donkeycar">Next let's <a href="/guide/install_software/#step-2-install-software-on-donkeycar">install software on Donkeycar</a></h3>
+<hr />
+<h2 id="install-donkeycar-on-windows-native">Install Donkeycar on Windows (native)</h2>
+<p><img alt="donkey" src="/assets/logos/windows_logo.png" /></p>
+<ul>
+<li>
+<p>Install <a href="https://www.python.org/downloads/">Python 3.6 (or later)</a></p>
+</li>
+<li>
+<p>Install <a href="https://gitforwindows.org/">Git Bash</a>.  During install make sure you check Git to run 'from command line and also from 3rd-party software'.</p>
+</li>
+<li>
+<p>Open Command Prompt as Administrator via the Start Menu (cmd.exe | right-click | run as administrator)</p>
+</li>
+<li>
+<p>Change to a folder that that you would like to use for all your projects</p>
+</li>
+</ul>
+<pre><code class="language-shell">mkdir projects
+cd projects
+</code></pre>
+<ul>
+<li>Get the latest donkey from Github.</li>
+</ul>
+<pre><code class="language-bash">git clone https://github.com/autorope/donkeycar
+cd donkeycar
+git checkout master
+</code></pre>
+<blockquote>
+<p>NOTE:  The <code>dev</code> branch has the latest (unstable) version of donkeycar with experimental features.</p>
+</blockquote>
+<ul>
+<li>Install Donkeycar into Python</li>
+</ul>
+<pre><code>pip3 install -e .[pc]
+</code></pre>
+<ul>
+<li>Recommended for GPU Users: Install Tensorflow GPU - only for NVIDIA Graphics cards</li>
+</ul>
+<p>If you have an NVIDIA card, you should update to the lastest drivers and <a href="https://www.tensorflow.org/install/gpu#windows_setup">install Cuda SDK</a>. </p>
+<pre><code class="language-bash">pip3 install tensorflow
+</code></pre>
+<ul>
+<li>Create your local working dir:</li>
+</ul>
+<pre><code class="language-bash">donkey createcar --path \Users\&lt;username&gt;\projects\mycar --template complete
+</code></pre>
+<blockquote>
+<p><strong>Templates</strong>
+ There are a number of different templates to choose from in Donkey Car.
+ basic | complete
+ You can find all the templates in the <a href="https://github.com/autorope/donkeycar/tree/dev/donkeycar/templates">donkeycar/donkeycar/templates</a> folder</p>
+</blockquote>
+<hr />
+<h3 id="next-lets-install-software-on-donkeycar_1">Next let's <a href="/guide/install_software/#step-2-install-software-on-donkeycar">install software on Donkeycar</a></h3>
+<hr />
+<h2 id="install-donkeycar-on-windows-wsl">Install Donkeycar on Windows (WSL)</h2>
+<p>The Windows Subsystem for Linux (WSL) lets developers run a GNU/Linux environment -- including most command-line tools, utilities, and applications -- directly on Windows, unmodified, without the overhead of a traditional virtual machine or dualboot setup.</p>
+<ul>
+<li>Install <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>.</li>
+<li>Turn on Windows 10 "Windows Subsystem for Linux" Feature (Settings &gt; Apps &gt; Programs and Features &gt; Turn Windows features on or off)</li>
+<li>Download a Linux Distribution from the Microsoft Store (recommend <a href="https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab">Ubuntu</a> Latest)</li>
+<li>
+<p>Open the Ubuntu App and configure.</p>
+</li>
+<li>
+<p>Open the Ubuntu App to get a prompt window via Start Menu | Ubuntu</p>
+</li>
+<li>
+<p>Install <code>git</code> using <code>sudo apt install git</code></p>
+</li>
+<li>
+<p>Install <code>python3</code> using <code>sudo apt install python3</code></p>
+</li>
+<li>
+<p>Change to a directory that you would like to use as the head of all your projects.</p>
+</li>
+</ul>
+<pre><code class="language-bash">mkdir projects
+cd projects
+</code></pre>
+<ul>
+<li>Get the latest donkey from Github.</li>
+</ul>
+<pre><code class="language-bash">git clone https://github.com/autorope/donkeycar
+cd donkeycar
+git checkout master
+</code></pre>
+<blockquote>
+<p>NOTE:  The <code>dev</code> branch has the latest (unstable) version of donkeycar with experimental features.</p>
+</blockquote>
+<ul>
+<li>Install Donkeycar into Python</li>
+</ul>
+<pre><code>pip3 install -e .[pc]
+</code></pre>
+<ul>
+<li>Experimental Support - GPU Users: Install Tensorflow GPU - only for NVIDIA Graphics cards</li>
+</ul>
+<p>If you have an NVIDIA card, you should update to the lastest drivers and <a href="https://www.tensorflow.org/install/gpu#windows_setup">install Cuda SDK</a>. </p>
+<pre><code class="language-bash">pip3 install tensorflow
+</code></pre>
+<ul>
+<li>Create your local working dir:</li>
+</ul>
+<pre><code class="language-bash">donkey createcar --path /path/to/projects/mycar --template complete
+</code></pre>
+<blockquote>
+<p><strong>Templates</strong>
+ There are a number of different templates to choose from in Donkey Car.
+ basic | complete
+ You can find all the templates in the <a href="https://github.com/autorope/donkeycar/tree/dev/donkeycar/templates">donkeycar/donkeycar/templates</a> folder</p>
+</blockquote>
+<hr />
+<h3 id="next-lets-install-software-on-donkeycar_2">Next let's <a href="/guide/install_software/#step-2-install-software-on-donkeycar">install software on Donkeycar</a></h3>
               
             </div>
           </div>

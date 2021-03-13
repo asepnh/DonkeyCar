@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Controllers";
-    var mkdocs_page_input_path = "parts/controllers.md";
+    var mkdocs_page_input_path = "parts\\controllers.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -139,6 +139,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rc-controller">RC Controller</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#creating-a-new-or-custom-game-controller">Creating a New or Custom Game Controller</a>
     </li>
     </ul>
@@ -159,6 +161,11 @@
                 <p class="caption"><span class="caption-text">Utilities</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../utility/donkey/">donkey</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Developer Guide</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/model/">Create your own model</a>
                     </li>
                 </ul>
                 <ul>
@@ -259,42 +266,37 @@
 <p>Note: If you have a controller that is not listed below, or you are having troubles getting your controller to work or you want to map your controller differently, see <a href="./#creating-a-new-or-custom-game-controller">Creating a New or Custom Game Controller</a>. </p>
 </blockquote>
 <h3 id="change-myconfigpy-or-run-with-js">Change myconfig.py or run with --js</h3>
-<pre><code class="bash">python manage.py drive --js
+<pre><code class="language-bash">python manage.py drive --js
 </code></pre>
-
 <p>Will enable driving with the joystick. This disables the live preview of the camera and the web page features. If you modify myconfig.py to make <code>USE_JOYSTICK_AS_DEFAULT = True</code>, then you do not need to run with the <code>--js</code>.</p>
 <h2 id="ps3-controller">PS3 Controller</h2>
 <h3 id="bluetooth-setup">Bluetooth Setup</h3>
 <p>Follow <a href="https://pythonhosted.org/triangula/sixaxis.html">this guide</a>. You can ignore steps past the 'Accessing the SixAxis from Python' section. I will include steps here in case the link becomes stale.</p>
-<pre><code class="bash">sudo apt-get install bluetooth libbluetooth3 libusb-dev
+<pre><code class="language-bash">sudo apt-get install bluetooth libbluetooth3 libusb-dev
 sudo systemctl enable bluetooth.service
 sudo usermod -G bluetooth -a pi
 </code></pre>
-
 <p>Reboot after changing the user group.</p>
 <p>Plug in the PS3 with USB cable. Hit center PS logo button. Get and build the command line pairing tool. Run it:</p>
-<pre><code class="bash">wget http://www.pabr.org/sixlinux/sixpair.c
+<pre><code class="language-bash">wget http://www.pabr.org/sixlinux/sixpair.c
 gcc -o sixpair sixpair.c -lusb
 sudo ./sixpair
 </code></pre>
-
 <p>Use bluetoothctl to pair</p>
-<pre><code class="bash">bluetoothctl
+<pre><code class="language-bash">bluetoothctl
 agent on
 devices
 trust &lt;MAC ADDRESS&gt;
 default-agent
 quit
 </code></pre>
-
 <p>Unplug USB cable. Hit center PS logo button.</p>
 <p>To test that the Bluetooth PS3 remote is working, verify that <code>/dev/input/js0</code> exists:</p>
-<pre><code class="bash">ls /dev/input/js0
+<pre><code class="language-bash">ls /dev/input/js0
 </code></pre>
-
 <h4 id="troubleshooting">Troubleshooting</h4>
 <p>In case the BT connection on the Raspberry Pi does not work, you see might something like this in <code>bluetoothctl</code>:</p>
-<pre><code class="text">[NEW] Controller 00:11:22:33:44:55 super-donkey [default]
+<pre><code class="language-text">[NEW] Controller 00:11:22:33:44:55 super-donkey [default]
 [NEW] Device AA:BB:CC:DD:EE:FF PLAYSTATION(R)3 Controller
 [CHG] Device AA:BB:CC:DD:EE:FF Connected: yes
 [CHG] Device AA:BB:CC:DD:EE:FF Connected: no
@@ -306,15 +308,12 @@ quit
 [CHG] Device AA:BB:CC:DD:EE:FF Connected: no
 [bluetooth]#
 </code></pre>
-
 <p>Try updating the Linux kernel and firmware by running:</p>
-<pre><code class="bash">sudo rpi-update
+<pre><code class="language-bash">sudo rpi-update
 </code></pre>
-
 <p>And then reboot:</p>
-<pre><code class="bash">sudo reboot
+<pre><code class="language-bash">sudo reboot
 </code></pre>
-
 <h3 id="charging-ps3-sixaxis-joystick">Charging PS3 Sixaxis Joystick</h3>
 <p>For some reason, they don't like to charge in a powered USB port that doesn't have an active Bluetooth control and OS driver. This means a phone type USB charger will not work. Try a powered Linux or mac laptop USB port. You should see the lights blink after plugging in and hitting center PS logo.</p>
 <p>After charging, you will need to plug-in the controller again to the Pi, hit the PS logo, then unplug to pair again.</p>
@@ -322,38 +321,32 @@ quit
 <p>Sometimes these controllers can be quite old. Here's a link to a <a href="http://a.co/5k1lbns">new battery</a>. Be careful when taking off the cover. Remove 5 screws. There's a tab on the top half between the hand grips. You'll want to split/open it from the front and try pulling the bottom forward as you do, or you'll break the tab off as I did.</p>
 <h3 id="ps3-mouse-problems-on-linux">PS3 Mouse problems on Linux</h3>
 <p>Sometimes when you plug-in the PS3 joystick it starts taking over your mouse. If you want to prevent that, you can run this:</p>
-<pre><code class="bash">xinput set-prop &quot;Sony PLAYSTATION(R)3 Controller&quot; &quot;Device Enabled&quot; 0
+<pre><code class="language-bash">xinput set-prop &quot;Sony PLAYSTATION(R)3 Controller&quot; &quot;Device Enabled&quot; 0
 </code></pre>
-
 <h2 id="ps4-controller">PS4 Controller</h2>
 <p>The following instructions are based on <a href="https://github.com/RetroPie/RetroPie-Setup/wiki/PS4-Controller#installation">RetroPie</a> and <a href="https://github.com/chrippa/ds4drv">ds4drv</a>.</p>
 <h4 id="install-ds4drv">Install <code>ds4drv</code></h4>
 <p>Running on your pi over ssh, you can directly install it:</p>
-<pre><code class="bash">sudo /home/pi/env/bin/pip install ds4drv
+<pre><code class="language-bash">sudo /home/pi/env/bin/pip install ds4drv
 </code></pre>
-
 <h4 id="grant-permission-to-ds4drv">Grant permission to <code>ds4drv</code></h4>
-<pre><code class="bash">sudo wget https://raw.githubusercontent.com/chrippa/ds4drv/master/udev/50-ds4drv.rules -O /etc/udev/rules.d/50-ds4drv.rules
+<pre><code class="language-bash">sudo wget https://raw.githubusercontent.com/chrippa/ds4drv/master/udev/50-ds4drv.rules -O /etc/udev/rules.d/50-ds4drv.rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 </code></pre>
-
 <h4 id="run-ds4drv">Run <code>ds4drv</code></h4>
-<pre><code class="bash">ds4drv --hidraw --led 00ff00
+<pre><code class="language-bash">ds4drv --hidraw --led 00ff00
 </code></pre>
-
 <p>If you see <code>Failed to create input device: "/dev/uinput" cannot be opened for writing</code>, reboot and retry. Probably granting permission step doesn't take effect until rebooting.
 Some controllers don't work with <code>--hidraw</code>. If that's the case try the command without it. <code>--led 00ff00</code> changes the light bar color, it's optional.</p>
 <h4 id="start-controller-in-pairing-mode">Start controller in pairing mode</h4>
 <p>Press and hold <strong>Share</strong> button, then press and hold <strong>PS</strong> button until the light bar starts blinking. If it goes <strong>green</strong> after a few seconds, pairing is successful.</p>
 <h4 id="run-ds4drv-in-background-on-startup-once-booted">Run <code>ds4drv</code> in background on startup once booted</h4>
-<pre><code class="bash">sudo nano /etc/rc.local
+<pre><code class="language-bash">sudo nano /etc/rc.local
 </code></pre>
-
 <p>paste:</p>
-<pre><code class="text">/home/pi/env/bin/ds4drv --led 00ff00
+<pre><code class="language-text">/home/pi/env/bin/ds4drv --led 00ff00
 </code></pre>
-
 <p>Save and exit. Again, with or without <code>--hidraw</code>, depending on the particular controller you are using.</p>
 <p>To disconnect, kill the process <code>ds4drv</code> and hold <strong>PS</strong> for 10 seconds to power off the controller.</p>
 <h2 id="xbox-one-controller">XBox One Controller</h2>
@@ -373,30 +366,36 @@ Some controllers don't work with <code>--hidraw</code>. If that's the case try t
 <li>the result should print 'Y'. If not, make sure the above steps have been done correctly.</li>
 </ul>
 <p>Once that is done, you can pair your controller to your Raspberry Pi using the bluetooth tool. Enter the following command into a bash shell prompt:  </p>
-<pre><code class="bash">sudo bluetoothctl
+<pre><code class="language-bash">sudo bluetoothctl
 </code></pre>
-
 <p>That will start blue tooth pairing in interactive mode. The remaining commands will be entered in that interactive session. Enter the following commands:</p>
-<pre><code class="text">agent on
+<pre><code class="language-text">agent on
 default-agent
 scan on
 </code></pre>
-
 <p>That last command will start the Raspberry Pi scanning for new bluetooth devices. At this point, turn on your XBox One controller using the big round 'X' button on top, then start the pairing mode by pressing the 'sync' button on the front of the controller.  Within a few minutes, you should see the controller show up in the output something like this;</p>
-<pre><code class="text">[NEW] Device B8:27:EB:A4:59:08 XBox One Wireless Controller
+<pre><code class="language-text">[NEW] Device B8:27:EB:A4:59:08 XBox One Wireless Controller
 </code></pre>
-
 <p>Write down the MAC address, you will need it for the following steps.  Enter this command to pair with your controller:</p>
-<pre><code class="text">connect YOUR_MAC_ADDRESS
+<pre><code class="language-text">connect YOUR_MAC_ADDRESS
 </code></pre>
-
 <p>where <code>YOUR_MAC_ADDRESS</code> is the MAC address you copied previously.  If it does not connect on the first try, try again.  It can take a few tries.  If your controller connects, but then immediately disconnects, your disable_ertm setting might be wrong (see above).  </p>
 <p>Once your controller is connected, the big round 'X' button on the top of your controller should be solid white.  Enter the following commands to finish:</p>
-<pre><code class="text">trust YOUR_MAC_ADDRESS
+<pre><code class="language-text">trust YOUR_MAC_ADDRESS
 quit
 </code></pre>
-
 <p>Now that your controller is trusted, it should automatically connect with your Raspberry Pi when they are both turned on.  If your controller fails to connect, run the bluetoothctl steps again to reconnect.</p>
+<h2 id="rc-controller">RC Controller</h2>
+<p>If you bought an RC car then it might have come with a standard 2.4GHz car 
+radio and receiver as in this picture. This can be used to drive the car. </p>
+<p><img alt="RC_receiver" src="../../assets/RC_receiver.jpg" /></p>
+<p>The connectors from lift to right are (S)ignal, +, -. Just attach the +/- to a free RPi 3.3V  and ground pin or pick these up from the other end of the PCA9685. These receivers seem to work fine with 3.3V as well. It doesn't matter which +, - you are choosing. </p>
+<p>Then connect the PWM signal pins to three wires, in this example CH1 - purple, CH2 - white, CH3 - blue. The other ends can go an any RPi GPIO, except for the +, - and SCL, SDA pins.  CH-1 is for steering, CH-2 for throttle and CH-3 is linked to a press button on the remote control. The default connections are steering - GPIO 26, throttle - GPIO 20, channel 3 (for record deletion) - GPIO 19.</p>
+<p>The <code>basic</code> template which you install with <code>donkey createcar --path ~/mycar --template basic</code> has and additional function <code>manage.py calibrate</code> which you should use to zero your angle and throttle PWM signal. </p>
+<p>You must also have <code>pigpio</code> installed. Do so with these commands: <code>sudo update &amp;&amp; sudo apt install python3-pigpio &amp; sudo systemctl start pigpiod</code></p>
+<blockquote>
+<p>Note: The PWM signal drifts over time. Hence check your calibration regularly before starting recording.</p>
+</blockquote>
 <h2 id="creating-a-new-or-custom-game-controller">Creating a New or Custom Game Controller</h2>
 <p>To discover or modify the button and axis mappings for your controller, you can use the <a href="/utility/donkey/#joystick-wizard">Joystick Wizard</a>. The Joystick Wizard will write a custom controller named 'my_joystick.py' to your mycar folder.  To use the custom controller, set <code>CONTROLLER_TYPE="custom"</code> in your myconfig.py.</p>
               
